@@ -1,43 +1,33 @@
-const btn = document.querySelector(".btn");
-let timerId,
-  i = 0;
+const btn = document.querySelector(".btn"),
+  elem = document.querySelector(".box");
+let pos = 0;
+
+// function myAnimation() {
+//     let pos = 0;
+
+//     const id = setInterval(frame, 10);
+//     function frame() {
+//         if (pos == 300) {
+//             clearInterval(id);
+//         } else {
+//             pos++;
+//             elem.style.top = pos + "px";
+//             elem.style.left = pos + 'px';
+//         }
+//     }
+// }
 
 function myAnimation() {
-  const elem = document.querySelector(".box");
-  let pos = 0;
+  pos++;
+  elem.style.top = pos + "px";
+  elem.style.left = pos + "px";
 
-  const id = setInterval(frame, 10);
-  function frame() {
-    if (pos == 300) {
-      pos++;
-      elem.style.top = pos + "px";
-      elem.style.left = pos + "px";
-    }
-    if (pos === 400) {
-      pos--;
-      elem.style.top = pos - "px";
-      elem.style.left = pos - "px";
-    } else {
-      clearInterval(id);
-    }
+  if (pos < 300) {
+    requestAnimationFrame(myAnimation);
   }
 }
 
-btn.addEventListener("click", myAnimation);
+btn.addEventListener("click", () => requestAnimationFrame(myAnimation));
 
-// btn.addEventListener("click", () => {
-//   timerId = setInterval(logger, 500);
-// });
-
-// function logger() {
-//   if (i === 3) {
-//     clearInterval(timerId);
-//   }
-//   console.log("text");
-//   i++;
-// }
-
-// let id = setTimeout(function log() {
-//   console.log("Hi");
-//   id = setTimeout(log, 1000);
-// }, 5000);
+let id = requestAnimationFrame(myAnimation);
+cancelAnimationFrame(id);
